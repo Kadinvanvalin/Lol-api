@@ -1,40 +1,40 @@
 $(document).ready(function(){
 
 	var State = function(){
-		this.matchData = [];
+		this.matchData = [0,0,0,0,0];
 		this.summonerID=0;
-		this.matchID = [];
+		this.matchID = [0,0,0,0,0];
 		this.apiKey = "RGAPI-a5dc20b2-b1ef-4912-8da7-6376378a341d"; 
 		this.params = {api_key:this.apiKey};
-		this.CsData =[];
+		this.CsData =[0,0,0,0,0];
 	};
 	var state = new State();
 	
 
-var ctx = document.getElementById("myChart");
-var myChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-        datasets: [{
-            label: '# of Votes',
-            fill: true,
-            data: state.CsData,
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            borderColor: 'rgba(255,99,132,1)',
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
-            }]
-        }
-    }
-});
+	var ctx = document.getElementById("myChart");
+	var myChart = new Chart(ctx, {
+		type: 'line',
+		data: {
+			labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+			datasets: [{
+				label: '# of Votes',
+				fill: true,
+				data: state.CsData,
+				backgroundColor: 'rgba(255, 99, 132, 0.2)',
+				borderColor: 'rgba(255,99,132,1)',
+				borderWidth: 1
+			}]
+		},
+		options: {
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero:true
+					}
+				}]
+			}
+		}
+	});
 
 
 
@@ -48,7 +48,7 @@ var myChart = new Chart(ctx, {
 	function findParticipantID(data){
 		for(var i=0; i <10; i++){
 			//participantIdentities.participantId[i]
-			if(data.participantIdentities[i].player.summonerName === "gripfael"){
+			if(data.participantIdentities[i].player.summonerName === $('#query').val()){
 				
 				console.log(data.participantIdentities[i]);
 				
@@ -62,54 +62,30 @@ var myChart = new Chart(ctx, {
 
 	}
 
-
-
-
-	$("#submit").click(function(event){
-		var q = $('#query').val();
-		var URL = "https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/" + q;
-		console.log(state.params);
-		$.getJSON(URL,state.params,
-
-		function(data)
-		{
-			state.summonerID=data.gripfael.id
-			setTimeout(GetMatches, 1000,data.gripfael.id);
-			console.log(data);
-		}
-		);
-
-		console.log(state);
-
-
-		function GetMatches(summonerID){
-			var URL = "https://na.api.pvp.net/api/lol/na/v2.2/matchlist/by-summoner/" + summonerID + "/";
-			$.getJSON(URL,
-			{
-
+	function test(){
+		function getSummonerId (){
+			var q = $('#query').val();
+			var URL = "https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/" + q;
+			return $.getJSON(URL, {
 				api_key:state.apiKey,
 
-
-			},
-
-			function(data)
-			{
-					for(var i = 0; i <5; i++){
-						state.matchID.push(data.matches[i].matchId);
-					}
-			
-			console.log(data);
-			for(var i = 0; i <5; i++){
-
-					setTimeout(matchStats, 10000,state.matchID[i] )
-				}
-
-			
+			});
+		}
+		var promised = getSummonerId();
+		promised.done(function(data){
+			state.summonerID=data[$('#query').val()].id;
+			setTimeout(GetMatches, 100,data[$('#query').val()].id);
+			console.log("works");
+			console.log(state.summoner);
 		});
+		promised.fail(function(data){
+			console.log("failed trying again");
+			setTimeout(test, 10000 )});
+
 	}
 
-	function matchStats(matchID){
-	var URL = "https://na.api.pvp.net/api/lol/na/v2.2/match/" + matchID + "/";
+	function GetMatches(summonerID){
+		var URL = "https://na.api.pvp.net/api/lol/na/v2.2/matchlist/by-summoner/" + summonerID + "/";
 		$.getJSON(URL,
 		{
 
@@ -120,18 +96,47 @@ var myChart = new Chart(ctx, {
 
 		function(data)
 		{
-
-			// for(var i = 0; i <5; i++){
-
-			// 		console.log(findParticipantID(data));
-			// 	}
-			findParticipantID(data);
-			state.matchData.push(data);
+			for(var i = 0; i <5; i++){
+				state.matchID.push(data.matches[i].matchId);
+			}
+			
 			console.log(data);
+			for(var j = 0; j <5; j++){
+				matchStats(state.matchID[j]);
+			}
+
 			
 		});
 	}
+	function matchStats(matchID){
+		
+		
+		function matchStatsIn (matchID){
+			var URL = "https://na.api.pvp.net/api/lol/na/v2.2/match/" + matchID + "/";
+			return $.getJSON(URL, {
+				api_key:state.apiKey,
+
+			});
+		}
+		var promised = matchStatsIn(matchID);
+		promised.done(function(data){
+			findParticipantID(data);
+			state.matchData.push(data);
+			state.matchID.splice(0,1);
+			console.log("works");
+		});
+		promised.fail(function(data){
+			console.log("failed to get match data. . . trying again")
+			console.log(state);
+			setTimeout(matchStats, 10000, matchID)});
+
+	}
 	
-});
+
+	$("#submit").click(function(event){
+		test();
+		console.log(state);
+
+	});
 	console.log(state.ID);
 });
