@@ -89,8 +89,10 @@ for(var i= 0; i<6; i++){
 		}
 		var promised = getSummonerId();
 		promised.done(function(data){
-			state.summonerID=data[$('#query').val()].id;
-			setTimeout(GetMatches, 100,data[$('#query').val()].id);
+			var Obj = Object.keys(data)[0];
+			console.log(Obj)
+			state.summonerID= data[Obj].id;
+			setTimeout(GetMatches, 100,data[Obj].id);
 			$("#status").html("Ok! found your summoner name, asking riot for match data")
 			console.log("works");
 			console.log(state.summoner);
