@@ -162,6 +162,10 @@ for(var i= 0; i<6; i++){
 	
 // submits summoner name 
 	$("#submit").click(function(event){
+		
+		state.apiKey = $("#js-api").val(); 
+		
+		var q = $('#query').val();
 		test();
 		console.log(state);
 
