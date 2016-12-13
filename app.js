@@ -15,7 +15,7 @@ $(document).ready(function(){
 	var myChart = new Chart(ctx, {
 		type: 'line',
 		data: {
-			labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+			labels: ["Game 1", "Game 2", "Game 3", "Game 4", "Game 5"],
 			datasets: [{
 				  fillColor: "rgba(220,220,220,0.2)",
               strokeColor: "rgba(220,220,220,1)",
@@ -26,8 +26,10 @@ $(document).ready(function(){
 			}]
 		},
 		options: {
+
+			
 			scales: {
-				yAxes: [{
+				yAxes:  [{
 					ticks: {
 						beginAtZero:true
 					}
@@ -35,6 +37,7 @@ $(document).ready(function(){
 			}
 		}
 	});
+
 // sort match data array by match id #
 function sortMatchData(){
 	
@@ -57,6 +60,7 @@ for(var i= 0; i<6; i++){
 
 	//pushs Cs data stored in state to an arry in state
 	function findCsVal(data, i){
+		$('#spinnerContainer').spin(false);
 		state.CsData.push(data.participants[i].timeline.creepsPerMinDeltas.zeroToTen);
 		console.log(data.participants[i].timeline.creepsPerMinDeltas.zeroToTen);
 	}
@@ -89,15 +93,18 @@ for(var i= 0; i<6; i++){
 		}
 		var promised = getSummonerId();
 		promised.done(function(data){
+			
 			var Obj = Object.keys(data)[0];
 			console.log(Obj)
 			state.summonerID= data[Obj].id;
 			setTimeout(GetMatches, 100,data[Obj].id);
-			$("#status").html("Ok! found your summoner name, asking riot for match data")
+			
 			console.log("works");
+			
 			console.log(state.summoner);
 		});
 		promised.fail(function(data){
+
 			$("#status").html("couldn't find your summoner name, will retry in 10 seconds");
 			console.log("failed trying again");
 			setTimeout(test, 10000 )});
@@ -117,7 +124,9 @@ for(var i= 0; i<6; i++){
 		var promised = GetMatchPromise(summonerID);
 
 		promised.done(function(data){
-			$("#status").html("found match data, pushing results to state, then we will ask riot for match stats!");
+			
+			
+			
 			for(var i = 0; i <5; i++){
 				state.matchID.push(data.matches[i].matchId);
 			}
@@ -129,8 +138,7 @@ for(var i= 0; i<6; i++){
 		});
 
 			promised.fail(function(data){
-			$("#status").html("failed to get match list. . . trying again in ten seconds");
-			console.log("failed to get match list. . . trying again")
+			$("#status").html("Failed to get match list. . . trying again in ten seconds");
 			console.log(state);
 			setTimeout(GetMatches, 10000, summonerID)});
 		
@@ -150,13 +158,13 @@ for(var i= 0; i<6; i++){
 		}
 		var promised = matchStatsIn(matchID);
 		promised.done(function(data){
-			$("#status").html("found match data!");
 			state.matchData.push(data);
+			
+
 			if(state.matchData.length === 5){sortMatchData();}
 		});
 		promised.fail(function(data){
-			$("#status").html("huh, riot didnt send the match data we asked for, we will wait 10 seconds then ask them for it again");
-			console.log("failed to get match data. . . trying again")
+			$("#status").html("We did not get the data we asked for, we will ask again in ten seconds. Please wait. . . ");
 			console.log(state);
 			setTimeout(matchStats, 10000, matchID)});
 
@@ -165,6 +173,8 @@ for(var i= 0; i<6; i++){
 // submits summoner name 
 	$("#submit").click(function(event){
 		
+	$('#spinnerContainer').spin(opts)
+
 		state.apiKey = $("#js-api").val(); 
 		
 		var q = $('#query').val();
@@ -173,7 +183,7 @@ for(var i= 0; i<6; i++){
 
 	});
 	console.log(state.ID);
-});
+
 
 
 
@@ -203,3 +213,23 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
+
+ var opts = {
+      lines: 13, // The number of lines to draw
+      length: 40, // The length of each line
+      width: 15, // The line thickness
+      radius: 10, // The radius of the inner circle
+      corners: 1, // Corner roundness (0..1)
+      rotate: 0, // The rotation offset
+      color: '#000', // #rgb or #rrggbb
+      speed: 1, // Rounds per second
+      trail: 60, // Afterglow percentage
+      shadow: false, // Whether to render a shadow
+      hwaccel: false, // Whether to use hardware acceleration
+      className: 'spinner', // The CSS class to assign to the spinner
+      zIndex: 2e9, // The z-index (defaults to 2000000000)
+      top: '50%', // Top position relative to parent in px
+      left: '50%' // Left position relative to parent in px
+    };
+    
+});

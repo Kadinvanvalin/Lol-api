@@ -1,21 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title></title>
+	<title>Creep Score</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="main.css">
-</form>
+<meta charset="utf-8">
 </head>
 <body>
-
-
+<h1>League of Legends Creep Score Tracker</h1>
+ <p>How well do you last hit minions? The first ten minutes set the tone for the rest of the game. Graph the last 5 ranked games you played, or someone else played! See how high you can get your creep score per min to be!<br/>You must have an API key to use this app. You can get one here. <a href="https://developer.riotgames.com/">https://developer.riotgames.com/</a>  
 <!-- The Modal -->
 <div id="myModal" class="modal">
 
   <!-- Modal content -->
   <div class="modal-content">
     <span class="close">&times;</span>
-    <p>This api is designed to graph the change in CS over the first ten minutes of a RANKED game, because of the harsh limits riot has on its api keys I require you to use your own. You can get one here. <a href="https://developer.riotgames.com/">https://developer.riotgames.com/</a> Use at your own risk </p><div id="legal">LAST UPDATED: DECEMBER 9, 2013
+   </p><div id="legal">LAST UPDATED: DECEMBER 9, 2013
 
 Please read these Riot Games API Terms (the "API Terms") carefully. Subject to the terms and conditions of these API Terms, Riot Games, Inc. ("Riot") may make the Game Information (as defined below) available to you and any entity on whose behalf you accept these API Terms (you and any such entity, "You," or "Your" where applicable) through the Riot Games API (as defined below).
 
@@ -157,26 +157,30 @@ YOU EXPRESSLY ACKNOWLEDGE THAT YOU HAVE READ THESE API TERMS AND UNDERSTAND THE 
 	<div class="content">
 
 
-	<div class="search-container"><span>Api key</span>
+	<div class="search-container"><span>API Key:</span>
 	<input type="text"  id="js-api">
-  		<span>lol  Search:</span> 
+  		<span>Summoner Name:</span> 
   		<input type="text" name="fname" id="query"><label class="fa fa-search" aria-hidden="true"><input id="submit" type="submit" value="Submit"></label>
   			<!-- Trigger/Open The Modal -->
-<button id="myBtn">Legal Stuff</button><br>
-  		<span id="status"></span>
-
+<br>
+  		
+  		<div id="progressbar"></div>
   						
   		</div>				
   	<!-- </form> -->
    </div>
 	<div id="search-container"></div>
-<canvas id="myChart" width="400" height="400"></canvas>
-
-
+	<div id="spinnerContainer" class="spinner">
+<canvas id="myChart" ></canvas>
+</div>
+<button id="myBtn">Legal Stuff</button>
 
 <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.js" type="text/javascript"></script>
+<script src="Scripts/Spin.js" type="text/javascript"></script>
+<script src="scripts/plugin.js" type="text/javascript"></script>
 <script type="text/javascript" src="app.js"></script>
+
 </body>
 </html>
 
