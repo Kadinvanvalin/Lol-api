@@ -15,12 +15,13 @@ $(document).ready(function(){
 	var myChart = new Chart(ctx, {
 		type: 'line',
 		data: {
+			label:"my first dataset",
 			labels: ["Game 1", "Game 2", "Game 3", "Game 4", "Game 5"],
 			datasets: [{
-				  fillColor: "rgba(220,220,220,0.2)",
-              strokeColor: "rgba(220,220,220,1)",
-              pointColor: "rgba(220,220,220,1)",
-              pointStrokeColor: "#fff",
+				label:"CS Δ per min",
+				  fill: false,
+              backgroundColor: "#027292",
+            borderColor: "#a3cdf7",
 				data: state.CsData,
 				
 			}]

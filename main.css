@@ -27,12 +27,12 @@ h1{
 
 }
 #legal{
-	height:400px;
+	
 	width:100%;
 	overflow:auto;
-	background-color:blue;
-	color:white;
-	scrollbar-base-color:gold;
+	background-color:#121212;
+	color:#eb942d;
+	
 	font-family:sans-serif;
 	padding:10px
 }
