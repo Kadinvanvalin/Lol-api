@@ -7,6 +7,7 @@
 <meta charset="utf-8">
 </head>
 <body>
+<div class="column">
 <h1>League of Legends Creep Score Tracker</h1>
  <p>How well do you last hit minions? The first ten minutes set the tone for the rest of the game. Graph the last 5 ranked games you played, or someone else played! See how high you can get your creep score per min to be!<br/>You must have an API key to use this app. You can get one here. <a href="https://developer.riotgames.com/">https://developer.riotgames.com/</a>  
 <!-- The Modal -->
@@ -19,6 +20,7 @@
   </div>
 
 </div>
+
 	<!-- <form action="#"> -->
 	<div class="content">
 
@@ -30,17 +32,19 @@
   			<!-- Trigger/Open The Modal -->
 <br>
   		
-  		<div id="progressbar"></div>
+  		
   						
   		</div>				
   	<!-- </form> -->
-   </div>
-	<div id="search-container"></div>
-	<div id="spinnerContainer" class="spinner">
-<canvas id="myChart" ></canvas>
+   <div id="chart-container">
+		<img id="overlay" src="_league_overlay__kalista_by_photoshopbae-d9uuocq.png" alt="Kalista themed overlay">   
+		<div id="spinnerContainer" class="spinner">
+					<canvas id="myChart" ></canvas>
+		</div>
+	</div>
+
 </div>
 <button id="myBtn">Legal Stuff</button>
-
 <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.js" type="text/javascript"></script>
 <script src="Scripts/Spin.js" type="text/javascript"></script>
