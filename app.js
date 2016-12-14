@@ -63,18 +63,13 @@ for(var i= 0; i<6; i++){
 	function findCsVal(data, i){
 		$('#spinnerContainer').spin(false);
 		state.CsData.push(data.participants[i].timeline.creepsPerMinDeltas.zeroToTen);
-		console.log(data.participants[i].timeline.creepsPerMinDeltas.zeroToTen);
 	}
 // compairs the inputed summoner name with the participants by looping over all the participants, invoking findcd function if it matches
 	function findParticipantID(data){
 		for(var j=0; j <10 ; j++){
-			console.log(data);
+			
 			if(data.participantIdentities[j].player.summonerId === state.summonerID){
-				
-				console.log(data.participantIdentities[j]);
-				
 				findCsVal(data, j);
-
 			}
 			myChart.update();
 		}
@@ -96,18 +91,11 @@ for(var i= 0; i<6; i++){
 		promised.done(function(data){
 			
 			var Obj = Object.keys(data)[0];
-			console.log(Obj)
+			
 			state.summonerID= data[Obj].id;
 			setTimeout(GetMatches, 100,data[Obj].id);
-			
-			console.log("works");
-			
-			console.log(state.summoner);
 		});
 		promised.fail(function(data){
-
-			$("#status").html("couldn't find your summoner name, will retry in 10 seconds");
-			console.log("failed trying again");
 			setTimeout(test, 10000 )});
 
 	}
@@ -131,16 +119,12 @@ for(var i= 0; i<6; i++){
 			for(var i = 0; i <5; i++){
 				state.matchID.push(data.matches[i].matchId);
 			}
-			
-			console.log(data);
 			for(var j = 0; j <5; j++){
 				matchStats(state.matchID[j]);
 			}
 		});
 
 			promised.fail(function(data){
-			$("#status").html("Failed to get match list. . . trying again in ten seconds");
-			console.log(state);
 			setTimeout(GetMatches, 10000, summonerID)});
 		
 
@@ -165,8 +149,6 @@ for(var i= 0; i<6; i++){
 			if(state.matchData.length === 5){sortMatchData();}
 		});
 		promised.fail(function(data){
-			$("#status").html("We did not get the data we asked for, we will ask again in ten seconds. Please wait. . . ");
-			console.log(state);
 			setTimeout(matchStats, 10000, matchID)});
 
 	}
@@ -180,10 +162,8 @@ for(var i= 0; i<6; i++){
 		
 		var q = $('#query').val();
 		test();
-		console.log(state);
-
 	});
-	console.log(state.ID);
+
 
 
 
