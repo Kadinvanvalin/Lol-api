@@ -1,21 +1,36 @@
 body{
-
-
+font-family: "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
+font-size: 1.13333em;
+color:#4ef5ff;
 }
 .column{
 	margin: 50px;
 	width:100%;
 }
+.content{
+
+}
+html { 
+  background: url(background.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
 h1{
+	border-radius: 10px;
+	font-size: 3em;
+	font-family: 'EB Garamond', serif;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, -.5);
 	text-align: center;
 	color:#eb942d;
-	background-color:#121212;
+	background-color:#000;
 	padding:20px;
 }
 #chart-container{
 
 position: relative;
-
+	
    height: 100%;
     padding:12%;
    
@@ -23,13 +38,16 @@ position: relative;
 
 
 #overlay{
+	
+	background-color:white;
+	border-radius: 10px;
 	margin-left: auto;
 	margin-right: auto;
 	position:absolute;
 	top: 0;
   left: 0;
   width: 100%;
-  
+  z-index: -1;
   
 }
 
@@ -44,6 +62,7 @@ position: relative;
 }
 */.search-container{
 	text-align: center;
+	margin-bottom: 20px;
 	
 
 }
@@ -52,11 +71,11 @@ position: relative;
 
 }
 #legal{
-	
+	border-radius: 10px;
 	width:100%;
 	overflow:auto;
-	background-color:#121212;
-	color:#eb942d;
+	
+	color:#000;
 	
 	font-family:sans-serif;
 	padding:10px
@@ -64,6 +83,7 @@ position: relative;
 
 /* The Modal (background) */
 .modal {
+	
     display: block; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
@@ -75,9 +95,24 @@ position: relative;
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
-
+.button {
+	box-sizing: border-box;
+    border-style: solid;
+    border-color: black;
+    border-width: 3px;
+    width: auto;
+    font-family: "Adobe Garamond Pro", Garamond, Baskerville, "Baskerville Old Face", "Hoefler Text", "Times New Roman", serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 6px 20px 4px 20px;
+    display: inline-block;
+    text-align: center;
+    background-color: #eb942d;
+}
 /* Modal Content/Box */
 .modal-content {
+	border-radius: 10px;
     background-color: #fefefe;
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
