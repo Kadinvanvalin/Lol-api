@@ -165,6 +165,19 @@ $(document).ready(function () {
         modal.style.display = "block";
     }
 
+    const demo = document.getElementById("demo-button");
+    demo.onclick = function() {
+        const generateNumber = () => +(Math.random() * 10).toFixed(2)
+
+        $('#spinnerContainer').spin(true);
+        setTimeout(()=> {
+            $('#spinnerContainer').spin(false);
+            Array.from(Array(5))
+                .map(generateNumber)
+                .forEach((v) => state.CsData.unshift(v))
+            myChart.update();
+        }, 800)
+    }
 	// When the user clicks on <span> (x), close the modal
     span.onclick = function () {
         modal.style.display = "none";
